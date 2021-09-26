@@ -1,43 +1,46 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-template<typename T>
+template<typename K, typename V>
 struct bitTree{
-    vector<T> bit;
-    int size;
-
-    bitTree(int n){
-        size = n;
-        bit.resize(n+1, 0);
+    unordered_map<K, V> bit;
+    V lim;
+    bitTree(V size){
+        lim = size;
     }
 
-    void update(int indx, T val){
-        while (indx <= size)
-        {
+    void update(K indx, V val){
+        while (indx < lim){
             bit[indx] += val;
             indx += (indx & -indx);
         }
     }
 
-    T sum(int indx){
-        T res;
+    V query(K indx){
+        V res = 0;
         while(indx > 0){
             res += bit[indx];
+            indx -= (indx & -indx);
         }
         return res;
     }
-    void debug(){
-        cout<<"Items of bit are: ";
-        for(auto item: bit){
-            cout<<item<<" ";
-        }
-        cout<<"\n";
+
+    V query(K l, K r){
+        return query(r) - query(l-1);
     }
 };
 
 void test(){
-    bitTree<int> b(10);
-    b.debug();
+    bitTree<int, int> b(20);
+    vector<int> arr = {1, 2, 3, 5, 8, 10};
+    for(int i=0; i<arr.size(); i++){
+        b.update(i+1, arr[i]);
+    }
+    if(b.query(3, 5) == 16){
+        cout<<"Working\n";
+    }else{
+        cout<<"Something goes wrong\n";
+    }
 }
 
 int main(){
