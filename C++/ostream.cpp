@@ -122,6 +122,14 @@ ostream& operator << (ostream &out, priority_queue<T, V, H> pq){
     return out;
 }
 
+template<typename T>
+ostream& operator << (ostream &out, list<T> &l){
+    for(auto val: l){
+        out << val << " ";
+    }
+    return out;
+}
+
 ////////////////////////////////// TEMPLATE END ////////////////////////////////////////
 
 struct Node{
@@ -170,9 +178,19 @@ void test_priority_queue(){
     cout << st << "\n";
 }
 
+void test_list(){
+    cout << "Test for linked list\n";
+    list<int> lst;
+    lst.push_back(1);
+    lst.push_back(2);
+    lst.push_front(3);
+    cout << lst << "\n";
+}
+
 void test(){
     test_unordered_map();
     test_priority_queue();
+    test_list();
 }
 
 int main(){
