@@ -82,7 +82,47 @@ ostream& operator << (ostream &out, unordered_set<T, Hasher> &s){
     return out;
 }
 
-/////////////////////////// TEMPLATE END ///////////////////////////////////////////////
+// No iterator is provided by stack so need to create the copy
+template<typename T>
+ostream& operator << (ostream &out, stack<T> st){
+    while(!st.empty()){
+        out << st.top() << " ";
+        st.pop();
+    }
+    return out;
+}
+
+// No iterator is provided by queue so need to create the copy
+template<typename T>
+ostream& operator << (ostream &out, queue<T> q){
+    while(!q.empty()){
+        out << q.front() << " ";
+        q.pop();
+    }
+    return out;
+}
+
+// No iterator is provided by queue so need to create the copy
+template<typename T>
+ostream& operator << (ostream &out, priority_queue<T> pq){
+    while(!pq.empty()){
+        out << pq.top() << " ";
+        pq.pop();
+    }
+    return out;
+}
+
+// Support for custom hasher or min heap
+template<typename T, typename V, typename H>
+ostream& operator << (ostream &out, priority_queue<T, V, H> pq){
+    while(!pq.empty()){
+        out << pq.top() << " ";
+        pq.pop();
+    }
+    return out;
+}
+
+////////////////////////////////// TEMPLATE END ////////////////////////////////////////
 
 struct Node{
     int key;
@@ -110,8 +150,8 @@ struct NodeHasher{
     }
 };
 
-
-void test(){
+void test_unordered_map(){
+    cout << "Test for unordered map\n";
     unordered_map<Node, int, NodeHasher> mp;
     for(int i=1; i<=5; i++){
         for(int j=1; j<=5; j++){
@@ -119,6 +159,20 @@ void test(){
         }
     }
     cout << mp << "\n";
+}
+
+void test_priority_queue(){
+    cout << "Test for priority queue\n";
+    priority_queue<Node> st;
+    st.push({1, 2});
+    st.push({3, 1});
+    st.push({2, 3});
+    cout << st << "\n";
+}
+
+void test(){
+    test_unordered_map();
+    test_priority_queue();
 }
 
 int main(){
