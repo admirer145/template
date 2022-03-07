@@ -82,6 +82,8 @@ ostream& operator << (ostream &out, unordered_set<T, Hasher> &s){
     return out;
 }
 
+/////////////////////////// TEMPLATE END ///////////////////////////////////////////////
+
 struct Node{
     int key;
     int value;
