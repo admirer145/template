@@ -5,20 +5,19 @@ template<typename T=int>
 struct unionFind{
     unordered_map<T, T> par;
     unordered_map<T, int> size;
-    bool isParentExist(T item){
-        return par.find(item) != par.end();
-    }
+
     T Find(T a){
-        if(!isParentExist(a)){
+        if(par.find(a) == par.end()){
             par[a] = a;
             size[a] = 1;
             return a;
         }
         while(a != par[a]){
-            a = par[a];
+            a = par[a] = par[par[a]];
         }
         return a;
     }
+
     void Union(T a, T b){
         a = Find(a);
         b = Find(b);
@@ -30,6 +29,39 @@ struct unionFind{
         }
         size[a] += size[b];
         par[b] = a;
+    }
+};
+
+// Much Faster without template, assuming nodes are from 0 to n-1
+struct UnionFind{
+    vector<int> par;
+    vector<int> size;
+    
+    UnionFind(int n){
+        par = vector<int>(n);
+        size = vector<int>(n, 1);
+        iota(par.begin(), par.end(), 0);
+    }
+
+    int find(int node){
+        while(node != par[node]){
+            node = par[node] = par[par[node]];
+        }
+        return node;
+    }
+
+    bool combine(int u, int v){
+        u = find(u);
+        v = find(v);
+        if(u == v){
+            return false;
+        }
+        if(size[u] < size[v]){
+            swap(u, v);
+        }
+        par[v] = u;
+        size[u] += size[v];
+        return true;
     }
 };
 

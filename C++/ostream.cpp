@@ -180,10 +180,10 @@ void test_priority_queue(){
 
 void test_list(){
     cout << "Test for linked list\n";
-    list<int> lst;
-    lst.push_back(1);
-    lst.push_back(2);
-    lst.push_front(3);
+    list<Node> lst;
+    lst.push_back({1,2});
+    lst.push_back({3,2});
+    lst.push_front({2,5});
     cout << lst << "\n";
 }
 
