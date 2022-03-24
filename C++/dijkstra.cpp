@@ -63,11 +63,11 @@ vector<int> dijkstra(vector<vector<Node>> &graph, int src, int n){
 // someone can argue that since we are not using any visited array, is there a possibility that this while loops runs infinitely
 // the answer is very simple: NO, since if we look closer to the code, where we are pushing the child into pq, there if condition
 // will fail if it don't find any other shorter path because of the < operator, basically we are pushing the child into priority queue only 
-// when there is some min path, that's the main reason why negative edge cost will not work (It runs infinitely since the edge cost is always reducing)
+// when there is some min path, that's the main reason why negative edge cost will not work (It runs infinitely since the edge cost keeps reducing)
 
 
 void test(){
-    // let number of nodes in graph is 4
+    // let number of nodes in graph is 5
     int n = 5;
     // create some edges in graph, inner vector representation is [from, to, cost]
     vector<vector<int>> edges = {{0, 1, 5}, {1, 2, 3}, {2, 3, 7}, {3, 0, 2}};
